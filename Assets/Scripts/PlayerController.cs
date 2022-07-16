@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float sizeMove;
     private float cameraSize;
+    [SerializeField] float forwardSpeed = 1f;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize;
@@ -13,21 +14,15 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        transform.Translate(Vector3.up*forwardSpeed);
+        if (Input.GetKey(KeyCode.A) )//todo add mobile swipe
         {
-            if (transform.position.x > (sizeMove * -1))
-            {
-                Vector3 newPos = new Vector3(transform.position.x - sizeMove, transform.position.y, transform.position.z);
-                transform.position = newPos;
-            }
+            transform.Rotate(0, 0,1f);
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
-            if (transform.position.x < sizeMove)
-            {
-                Vector3 newPos = new Vector3(transform.position.x + sizeMove, transform.position.y, transform.position.z);
-                transform.position = newPos;
-            }
+            transform.Rotate(0,0, -1f);
+            //transform.Translate(Vector3.right);
         }
     }
 }
