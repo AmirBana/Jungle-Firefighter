@@ -6,14 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     private float cameraSize;
     [SerializeField] float speed=10f;
+    int layer;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
+        layer = 1<<4;
         print(cameraSize);
     }
     void Update()
     {
         Movement();
+        ProblemDetection();
     }
     void Movement()
     {
@@ -52,6 +55,17 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
+        }
+    }
+    private void ProblemDetection()
+    {
+        var ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, Vector3.down*20f, Color.red);
+        if (Physics.Raycast(ray, out hit, layer))
+        {
+            var objHit = hit.transform.gameObject;
+            print(objHit.tag);
         }
     }
 }
