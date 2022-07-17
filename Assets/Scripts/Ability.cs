@@ -29,7 +29,7 @@ public class Ability : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag(problemTag))
+        if(other.transform.CompareTag(problemTag))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);

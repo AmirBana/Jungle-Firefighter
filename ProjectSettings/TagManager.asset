@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - Human
   - Fire
+  - Solved
   layers:
   - Default
   - TransparentFX

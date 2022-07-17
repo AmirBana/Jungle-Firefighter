@@ -12,15 +12,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject ladder;
     [SerializeField] TextMeshProUGUI ladderTxt;
     [SerializeField] TextMeshProUGUI waterTxt;
+    [SerializeField] TextMeshProUGUI humanTxt;
+    [SerializeField] TextMeshProUGUI fireTxt;
     private int waterNum;
     private int ladderNum;
+    private int humanNum;
+    private int fireNum;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
         layer = 1<<4;
-        print(cameraSize);
         waterNum = 0;
         ladderNum = 0;
+        humanNum = 0;
+        fireNum = 0;
     }
     void Update()
     {
@@ -83,13 +88,15 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, layer))
         {
             var objHit = hit.transform.gameObject;
-            print(objHit.tag);
             switch (objHit.tag)
             {
                 case "Human":
                     if(ladderNum > 0)
                     {
                         AbilitySpawn(ladder);
+                        objHit.gameObject.tag = "Solved";
+                        humanNum += 1;
+                        humanTxt.text = humanNum.ToString();
                        // Destroy(objHit.gameObject);
                         ladderNum -= 1;
                         ladderTxt.text = ladderNum.ToString();
@@ -99,6 +106,9 @@ public class PlayerController : MonoBehaviour
                     if(waterNum > 0)
                     {
                         AbilitySpawn(water);
+                        objHit.gameObject.tag = "Solved";
+                        fireNum += 1;
+                        fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
                         waterNum -= 1;
                         waterTxt.text = waterNum.ToString();
@@ -114,5 +124,6 @@ public class PlayerController : MonoBehaviour
         Vector3 spawnPos = new Vector3(transform.position.x,transform.position.y-3,transform.position.z);
         GameObject obj=Instantiate(ability, spawnPos, Quaternion.identity);
         obj.GetComponent<Ability>().planeAbility = true;
+        obj.GetComponent<SphereCollider>().isTrigger = false;
     }
 }
