@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Water
   - Ladder
+  - Human
+  - Fire
   layers:
   - Default
   - TransparentFX

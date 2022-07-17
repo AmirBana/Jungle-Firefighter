@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float cameraSize;
-    [SerializeField] float forwardSpeed = 1f;
+    [SerializeField] float speed=10f;
     void Start()
     {
-        cameraSize = Camera.main.orthographicSize/2 - 3;
+        cameraSize = Camera.main.orthographicSize / 2 - 3;
         print(cameraSize);
     }
     void Update()
@@ -21,29 +21,37 @@ public class PlayerController : MonoBehaviour
         {
             if (transform.position.x > cameraSize * -1)
             {
-                transform.Translate(Vector3.left, Space.World);
+                transform.Translate(Vector3.left*speed*Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
             if (transform.position.x < cameraSize)
             {
-                transform.Translate(Vector3.right, Space.World);
+                transform.Translate(Vector3.right*speed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.W))//todo add mobile swipe
         {
             if (transform.position.z < 50f)
             {
-                transform.Translate(Vector3.forward,Space.World);
+                transform.Translate(Vector3.forward*speed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.S))//todo add mobile swipe
         {
             if (transform.position.z > 1f)
             {
-                transform.Translate(-Vector3.forward,Space.World);
+                transform.Translate(-Vector3.forward*speed* Time.deltaTime, Space.World);
             }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Water") || other.transform.CompareTag("Ladder"))
+        {
+            Debug.Log(other.transform.name);
+            Destroy(other.gameObject);
         }
     }
 }
