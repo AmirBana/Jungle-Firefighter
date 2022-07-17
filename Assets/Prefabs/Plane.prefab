@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 7829340340244517657}
   - component: {fileID: 1794991793}
   - component: {fileID: 1794991792}
+  - component: {fileID: 1794991794}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Player
@@ -152,6 +153,8 @@ MonoBehaviour:
   ladder: {fileID: 6653512669834066943, guid: 0e21e082b92c0e74da28eabed9ddc5b8, type: 3}
   ladderTxt: {fileID: 0}
   waterTxt: {fileID: 0}
+  humanTxt: {fileID: 0}
+  fireTxt: {fileID: 0}
 --- !u!54 &1794991793
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,6 +184,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.0587654, y: 4.368428, z: 1.6740144}
   m_Center: {x: -0.019145012, y: -0.38252354, z: -0.019080073}
+--- !u!65 &1794991794
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944816389520689384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0587654, y: 4.368428, z: 3.1}
+  m_Center: {x: -0.019145012, y: -0.38252354, z: 14.74}
 --- !u!1 &8944816390106857364
 GameObject:
   m_ObjectHideFlags: 0

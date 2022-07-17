@@ -13,9 +13,9 @@ public class Ability : MonoBehaviour
     void Start()
     {
         if (transform.CompareTag("Water"))
-            problemTag = "Fire";
+            problemTag = "FireSolved";
         else if (transform.CompareTag("Ladder"))
-            problemTag = "Human";
+            problemTag = "HumanSolved";
     }
 
     // Update is called once per frame

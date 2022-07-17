@@ -79,6 +79,12 @@ public class PlayerController : MonoBehaviour
             ladderNum += 1;
             ladderTxt.text = ladderNum.ToString();
         }
+        if(other.transform.CompareTag("Enemy"))
+        {
+            print("game over");
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
     }
     private void ProblemDetection()
     {
@@ -94,7 +100,7 @@ public class PlayerController : MonoBehaviour
                     if(ladderNum > 0)
                     {
                         AbilitySpawn(ladder);
-                        objHit.gameObject.tag = "Solved";
+                        objHit.gameObject.tag = "HumanSolved";
                         humanNum += 1;
                         humanTxt.text = humanNum.ToString();
                        // Destroy(objHit.gameObject);
@@ -106,7 +112,7 @@ public class PlayerController : MonoBehaviour
                     if(waterNum > 0)
                     {
                         AbilitySpawn(water);
-                        objHit.gameObject.tag = "Solved";
+                        objHit.gameObject.tag = "FireSolved";
                         fireNum += 1;
                         fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
