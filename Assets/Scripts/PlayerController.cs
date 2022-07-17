@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     private float cameraSize;
     [SerializeField] float speed=10f;
     int layer;
+    [SerializeField] GameObject water;
+    [SerializeField] GameObject ladder;
+    [SerializeField] TextMeshProUGUI ladderTxt;
+    [SerializeField] TextMeshProUGUI waterTxt;
+    private int waterNum;
+    private int ladderNum;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
         layer = 1<<4;
         print(cameraSize);
+        waterNum = 0;
+        ladderNum = 0;
     }
     void Update()
     {
@@ -51,10 +60,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Water") || other.transform.CompareTag("Ladder"))
+        if (other.transform.CompareTag("Water"))
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
+            waterNum += 1;
+            waterTxt.text = waterNum.ToString();
+        }
+        if(other.transform.CompareTag("Ladder"))
+        {
+            Debug.Log(other.transform.name);
+            Destroy(other.gameObject);
+            ladderNum += 1;
+            ladderTxt.text = ladderNum.ToString();
         }
     }
     private void ProblemDetection()
@@ -66,6 +84,39 @@ public class PlayerController : MonoBehaviour
         {
             var objHit = hit.transform.gameObject;
             print(objHit.tag);
+            switch (objHit.tag)
+            {
+                case "Human":
+                    //AbilitySpawn(ladder);
+                    if(ladderNum > 0)
+                    {
+                        Destroy(objHit.gameObject);
+                        ladderNum -= 1;
+                        ladderTxt.text = ladderNum.ToString();
+                    }
+                    break;
+                case "Fire":
+                    // AbilitySpawn(water);
+                    if(waterNum > 0)
+                    {
+                        Destroy(objHit.gameObject);
+                        waterNum -= 1;
+                        waterTxt.text = waterNum.ToString();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+    private void AbilitySpawn(GameObject ability)
+    {
+        Vector3 spawnPos = new Vector3(transform.position.x,transform.position.y-3,transform.position.z);
+        GameObject obj=Instantiate(ability, spawnPos, Quaternion.identity);
+       // obj.planeAbility += PlaneAbility;
+    }
+    private void PlaneAbility()
+    {
+
     }
 }
