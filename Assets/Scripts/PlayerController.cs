@@ -87,19 +87,19 @@ public class PlayerController : MonoBehaviour
             switch (objHit.tag)
             {
                 case "Human":
-                    //AbilitySpawn(ladder);
                     if(ladderNum > 0)
                     {
-                        Destroy(objHit.gameObject);
+                        AbilitySpawn(ladder);
+                       // Destroy(objHit.gameObject);
                         ladderNum -= 1;
                         ladderTxt.text = ladderNum.ToString();
                     }
                     break;
                 case "Fire":
-                    // AbilitySpawn(water);
                     if(waterNum > 0)
                     {
-                        Destroy(objHit.gameObject);
+                        AbilitySpawn(water);
+                        //Destroy(objHit.gameObject);
                         waterNum -= 1;
                         waterTxt.text = waterNum.ToString();
                     }
@@ -113,10 +113,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(transform.position.x,transform.position.y-3,transform.position.z);
         GameObject obj=Instantiate(ability, spawnPos, Quaternion.identity);
-       // obj.planeAbility += PlaneAbility;
-    }
-    private void PlaneAbility()
-    {
-
+        obj.GetComponent<Ability>().planeAbility = true;
     }
 }

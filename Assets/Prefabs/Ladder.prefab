@@ -110,4 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858c4d8be1fa1a74aa4f7ee8b28e1aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  moveSpeed: 20
+  fallSpeed: 10
+  planeAbility: 0

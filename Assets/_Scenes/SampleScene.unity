@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc12b7d2946044247a38bcb4070c2ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 20
 --- !u!1 &1936157682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,14 +1448,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7829340340244517657, guid: ee7605c147bf65f489f11260b26de6b3, type: 3}
-      propertyPath: water
-      value: 
-      objectReference: {fileID: 9046530836570658340, guid: db383e29b4e8b0949ac5e442eebc3665, type: 3}
-    - target: {fileID: 7829340340244517657, guid: ee7605c147bf65f489f11260b26de6b3, type: 3}
-      propertyPath: ladder
-      value: 
-      objectReference: {fileID: 6653512669834066943, guid: 0e21e082b92c0e74da28eabed9ddc5b8, type: 3}
     - target: {fileID: 7829340340244517657, guid: ee7605c147bf65f489f11260b26de6b3, type: 3}
       propertyPath: waterTxt
       value: 
