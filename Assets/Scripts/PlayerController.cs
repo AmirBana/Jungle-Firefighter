@@ -8,20 +8,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float forwardSpeed = 1f;
     void Start()
     {
-
+        cameraSize = Camera.main.orthographicSize/2 - 3;
+        print(cameraSize);
     }
     void Update()
     {
-        transform.Translate(Vector3.up*forwardSpeed);
-        if (Input.GetKey(KeyCode.A) )//todo add mobile swipe
+        if (Input.GetKey(KeyCode.A))//todo add mobile swipe
         {
-            transform.
-            transform.Rotate(0, -1f, 0, Space.World);
+            if(transform.position.x > cameraSize*-1)
+            {
+                transform.Translate(Vector3.left);
+            }
         }
         if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
-            transform.Rotate(0, 1f, 0, Space.World);
-            //transform.Translate(Vector3.right);
+            if(transform.position.x < cameraSize)
+            {
+                transform.Translate(Vector3.right);
+            }
         }
     }
 }
