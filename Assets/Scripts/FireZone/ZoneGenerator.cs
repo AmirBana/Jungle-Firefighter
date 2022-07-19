@@ -11,7 +11,7 @@ public class ZoneGenerator : MonoBehaviour
     void Start()
     {
         size = 4;
-        cameraSize = Camera.main.orthographicSize / 2 - (3 + size);
+        cameraSize = Camera.main.orthographicSize / 2 - (3 + size*2);
         StartCoroutine(Spawner());
     }
 

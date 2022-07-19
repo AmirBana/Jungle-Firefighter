@@ -14,20 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI waterTxt;
     [SerializeField] TextMeshProUGUI humanTxt;
     [SerializeField] TextMeshProUGUI fireTxt;
-    private int waterNum;
-    private int ladderNum;
-    private int humanNum;
-    private int fireNum;
 
     public LayerMask mask;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
         layer = 1<<4;
-        waterNum = 10000;
-        ladderNum = 0;
-        humanNum = 0;
-        fireNum = 0;
     }
     void Update()
     {
@@ -72,15 +64,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            waterNum += 1;
-            waterTxt.text = waterNum.ToString();
+            GameManager.waterNum += 1;
         }
         if(other.transform.CompareTag("Ladder"))
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            ladderNum += 1;
-            ladderTxt.text = ladderNum.ToString();
+            GameManager.ladderNum += 1;
         }
         if(other.transform.CompareTag("Enemy"))
         {
@@ -100,27 +90,25 @@ public class PlayerController : MonoBehaviour
             switch (objHit.tag)
             {
                 case "Human":
-                    if(ladderNum > 0)
+                    if(GameManager.ladderNum > 0)
                     {
                         AbilitySpawn(ladder);
                         objHit.gameObject.tag = "HumanSolved";
-                        humanNum += 1;
-                        humanTxt.text = humanNum.ToString();
-                       // Destroy(objHit.gameObject);
-                        ladderNum -= 1;
-                        ladderTxt.text = ladderNum.ToString();
+                        GameManager.humanSolved += 1;
+                        // Destroy(objHit.gameObject);
+                        GameManager.ladderNum -= 1;
                     }
                     break;
                 case "Fire":
-                    if(waterNum > 0)
+                    if(GameManager.waterNum > 0)
                     {
                         print('s');
                         AbilitySpawn(water);
                         objHit.gameObject.tag = "FireSolved";
-                        fireNum += 1;
+                        GameManager.fireSolved += 1;
                         //fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
-                        waterNum -= 1;
+                        GameManager.waterNum -= 1;
                         //waterTxt.text = waterNum.ToString();
                     }
                     break;
@@ -145,11 +133,13 @@ public class PlayerController : MonoBehaviour
                 print('s');
                 AbilitySpawn(water);
                 objHit.gameObject.tag = "FireSolved";
+                if(objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)
+                {
+                    GameManager.fireSolved += 1;
+                }
                 //fireNum += 1;
-                //fireTxt.text = fireNum.ToString();
                 //Destroy(objHit.gameObject);
-                //waterNum -= 1;
-                //waterTxt.text = waterNum.ToString();
+                GameManager.waterNum -= 1;
             }
         }
     }

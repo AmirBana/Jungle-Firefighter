@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireZoneManager : MonoBehaviour
 {
     [SerializeField] GameObject cube;
+    List<GameObject> line = new List<GameObject>();
     float size = 2f;
     float xBase ;
     float zBase ;
@@ -35,7 +36,6 @@ public class FireZoneManager : MonoBehaviour
     void Spawner(int zLines,int xLines)
     {
         int fire = -1;
-        List<GameObject> line = new List<GameObject>();
         for (float z=zBase;z<zBase+(zLines* size); z+= size)
         {
             for (float x = xBase; x < xBase + (xLines * size); x += size)
@@ -48,23 +48,28 @@ public class FireZoneManager : MonoBehaviour
             {
                 fire = Random.Range(0, line.Count);
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
             else if (fire == 0)
             {
                 fire = Random.Range(0, fire + 1);
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
             else if (fire == line.Count)
             {
                 fire=Random.Range(fire - 1, fire);
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
                 fire = Random.Range(fire - 1, fire + 2);
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
             line.Clear();
+            GameManager.fireSpawned += 1;
         }
     }
 }
