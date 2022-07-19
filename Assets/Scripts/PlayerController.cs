@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
         layer = 1<<4;
-        waterNum = 0;
+        waterNum = 10000;
         ladderNum = 0;
         humanNum = 0;
         fireNum = 0;
@@ -30,7 +30,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        ProblemDetection();
+        // ProblemDetection();
+        FireFinder();
     }
     void Movement()
     {
@@ -111,17 +112,40 @@ public class PlayerController : MonoBehaviour
                 case "Fire":
                     if(waterNum > 0)
                     {
+                        print('s');
                         AbilitySpawn(water);
                         objHit.gameObject.tag = "FireSolved";
                         fireNum += 1;
-                        fireTxt.text = fireNum.ToString();
+                        //fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
                         waterNum -= 1;
-                        waterTxt.text = waterNum.ToString();
+                        //waterTxt.text = waterNum.ToString();
                     }
                     break;
                 default:
                     break;
+            }
+        }
+    }
+    void FireFinder()
+    {
+        var ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
+        if (Physics.Raycast(ray, out hit,layer))
+        {
+            var objHit = hit.transform.gameObject;
+            print(objHit.tag);
+            if (objHit.transform.CompareTag("Fire"))
+            {
+                print('s');
+                AbilitySpawn(water);
+                objHit.gameObject.tag = "FireSolved";
+                //fireNum += 1;
+                //fireTxt.text = fireNum.ToString();
+                //Destroy(objHit.gameObject);
+                //waterNum -= 1;
+                //waterTxt.text = waterNum.ToString();
             }
         }
     }
