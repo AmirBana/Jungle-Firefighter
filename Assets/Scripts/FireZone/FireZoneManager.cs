@@ -67,15 +67,4 @@ public class FireZoneManager : MonoBehaviour
             line.Clear();
         }
     }
-    void GeneratePath(float z)
-    {
-        float xS = xBase;
-        float[] x = new float[3];
-        x[0] = xS;
-        x[1] = xS + size;
-        x[2] = xS - size;
-        xS = x[Random.Range(0, 3)];
-        Vector3 spawnPos = new Vector3(xS, transform.position.y, z);
-        Instantiate(cube, spawnPos, cube.transform.rotation, transform);
-    }
 }

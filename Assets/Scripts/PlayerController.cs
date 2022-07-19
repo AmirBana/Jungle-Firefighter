@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private int ladderNum;
     private int humanNum;
     private int fireNum;
+
+    public LayerMask mask;
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
@@ -129,10 +131,12 @@ public class PlayerController : MonoBehaviour
     }
     void FireFinder()
     {
-        var ray = new Ray(transform.position, Vector3.down);
+        float rayHeight = 50.0f;
+
+        var ray = new Ray(transform.position, Vector3.down*rayHeight);
         RaycastHit hit;
-        Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
-        if (Physics.Raycast(ray, out hit,layer))
+        Debug.DrawRay(transform.position, Vector3.down * rayHeight, Color.red);
+        if (Physics.Raycast(ray, out hit,10000,mask))
         {
             var objHit = hit.transform.gameObject;
             print(objHit.tag);
