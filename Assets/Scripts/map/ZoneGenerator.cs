@@ -48,8 +48,8 @@ public class ZoneGenerator : MonoBehaviour
         int xSize = Random.Range(minZoneSizeX, maxZoneSizeX);
         //int zSize = Random.Range(minZoneSizeZ, maxZoneSizeZ);
         int xStart = Random.Range(0, xGrid - xSize);
-         averangeFreeSpace = totalFreeSpace / (amount-left);
-        print("averange Zone:"+averangeFreeSpace);
+        averangeFreeSpace = totalFreeSpace / (amount-left);
+       // print("averange Zone:"+averangeFreeSpace);
         int zStart = Random.Range(starter, starter+averangeFreeSpace+1);
         totalFreeSpace = totalFreeSpace - (zStart-starter);
         Vector3 holderPos = new Vector3(transform.position.x + xStart, transform.position.y, transform.position.z + zStart);
@@ -67,7 +67,7 @@ public class ZoneGenerator : MonoBehaviour
             {
                // print('x');
                 sPos = new Vector3(mapGenerator.transform.position.x + x
-                    , mapGenerator.transform.position.y, mapGenerator.transform.position.z + z);
+                    , mapGenerator.transform.position.y+1, mapGenerator.transform.position.z + z);
                 Instantiate(zone, sPos, mapGenerator.transform.rotation, holder.transform);
             }
         }

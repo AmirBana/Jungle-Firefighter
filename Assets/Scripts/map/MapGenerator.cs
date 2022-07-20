@@ -12,7 +12,6 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         xGrid = xGrid*size;
         zGrid = zGrid * size;
         isOdd = xGrid%2==0 ? false : true;

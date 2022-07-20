@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1453129023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453129024}
+  - component: {fileID: 1453129025}
+  m_Layer: 0
+  m_Name: Zone Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453129024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453129023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8338640690334307357}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453129025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453129023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eaaaa86953832d4b831f97400ea2e26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zone: {fileID: 235202795412445996, guid: ad47c37ce2312fd4784fd602c4d6ebab, type: 3}
+  zoneHolder: {fileID: 7378129554411806540, guid: ef9326bf59c60614fb1b21f641e68393, type: 3}
+  amount: 6
+  starter: 10
+  maxDistance: 3
+  minZoneSizeX: 3
+  maxZoneSizeX: 5
+  zSize: 10
 --- !u!1 &8338640690334307355
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +80,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1453129024}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,8 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSize: 0
   xGrid: 10
-  yGrid: 50
-  size: 4
+  zGrid: 90
+  size: 1
   baseCubes:
   - {fileID: 4039739771865017263, guid: 82d8b90866b2a6d45b8feb6429810c09, type: 3}
   - {fileID: 1157423564458954125, guid: c4e8d455757b587418ca67bda1ec0e38, type: 3}
