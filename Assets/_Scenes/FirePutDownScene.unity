@@ -558,6 +558,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1453129025, guid: 313cb15989cbd154db6e1c0171bcfc20, type: 3}
+      propertyPath: amount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338640690334307354, guid: 313cb15989cbd154db6e1c0171bcfc20, type: 3}
+      propertyPath: zGrid
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 8338640690334307355, guid: 313cb15989cbd154db6e1c0171bcfc20, type: 3}
       propertyPath: m_Name
       value: Map

@@ -17,7 +17,6 @@ public class ZoneController : MonoBehaviour
     {
         int cubes = transform.childCount;
         zoneWidth = cubes / zoneHeight;
-        print("zone Width:" + zoneWidth);
     }
     void FireLineGenerator()
     {
@@ -26,10 +25,10 @@ public class ZoneController : MonoBehaviour
         {
             for(int j=0;j < zoneWidth;j++)
             {
+                //print(((i * zoneWidth) + j));
                 line.Add(transform.GetChild((i*zoneWidth)+j).gameObject);
+                //line[j].GetComponent<MeshRenderer>().material.color = Color.red;
             }
-            for(int k=0;k<zoneWidth;k++)
-            {
                 if (fire == -1)
                 {
                     fire = Random.Range(0, line.Count);
@@ -57,7 +56,6 @@ public class ZoneController : MonoBehaviour
                     line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
                     //line[fire].GetComponent<MeshRenderer>().enabled = true;
                 }
-            }
             line.Clear();
         }
     }
