@@ -5,12 +5,11 @@ using UnityEngine;
 public class GroundController : MonoBehaviour
 {
     // Start is called before the first frame update
-    float z_min,z_max;
-    [SerializeField] float speed = 10f;
+    public float z_min=5.9f,z_max=42.6f;
+    float speed = 10f;
     void Start()
     {
-        z_min = 5.9f;
-        z_max = 42.6f;
+        speed = GameManager.environmentSpeed;
     }
 
     // Update is called once per frame

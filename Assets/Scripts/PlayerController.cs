@@ -6,8 +6,13 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     private float cameraSize;
-    [SerializeField] float speed=10f;
-    int layer;
+    [SerializeField] float forwardSpeed=10f;
+    [SerializeField] float turnSpeed=10f;
+    [SerializeField] float backwardSpeed = 10f;
+    [SerializeField] int waterAdd = 10;
+    [SerializeField] int waterTake = 10;
+    [SerializeField] int ladderAdd = 1;
+    [SerializeField] int ladderTake = 1;
     [SerializeField] GameObject water;
     [SerializeField] GameObject ladder;
     [SerializeField] TextMeshProUGUI ladderTxt;
@@ -19,13 +24,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         cameraSize = Camera.main.orthographicSize / 2 - 3;
-        layer = 1<<4;
     }
     void Update()
     {
         Movement();
-        // ProblemDetection();
-        FireFinder();
+        ProblemDetection();
+        //FireFinder();
     }
     void Movement()
     {
@@ -33,28 +37,28 @@ public class PlayerController : MonoBehaviour
         {
             if (transform.position.x > cameraSize * -1)
             {
-                transform.Translate(Vector3.left*speed*Time.deltaTime, Space.World);
+                transform.Translate(Vector3.left*turnSpeed*Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
             if (transform.position.x < cameraSize)
             {
-                transform.Translate(Vector3.right*speed* Time.deltaTime, Space.World);
+                transform.Translate(Vector3.right*turnSpeed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.W))//todo add mobile swipe
         {
             if (transform.position.z < 50f)
             {
-                transform.Translate(Vector3.forward*speed* Time.deltaTime, Space.World);
+                transform.Translate(Vector3.forward*forwardSpeed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.S))//todo add mobile swipe
         {
             if (transform.position.z > 1f)
             {
-                transform.Translate(-Vector3.forward*speed* Time.deltaTime, Space.World);
+                transform.Translate(-Vector3.forward*backwardSpeed* Time.deltaTime, Space.World);
             }
         }
     }
@@ -64,13 +68,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            GameManager.waterNum += 1;
+            GameManager.waterNum += waterAdd;
         }
         if(other.transform.CompareTag("Ladder"))
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            GameManager.ladderNum += 1;
+            GameManager.ladderNum += ladderAdd;
         }
         if(other.transform.CompareTag("Enemy"))
         {
@@ -81,10 +85,11 @@ public class PlayerController : MonoBehaviour
     }
     private void ProblemDetection()
     {
-        var ray = new Ray(transform.position, Vector3.down);
+        float rayHeight = 50.0f;
+        var ray = new Ray(transform.position, Vector3.down*rayHeight);
         RaycastHit hit;
-        Debug.DrawRay(transform.position, Vector3.down*20f, Color.red);
-        if (Physics.Raycast(ray, out hit, layer))
+        Debug.DrawRay(transform.position, Vector3.down*rayHeight, Color.red);
+        if (Physics.Raycast(ray, out hit, mask))
         {
             var objHit = hit.transform.gameObject;
             switch (objHit.tag)
@@ -96,19 +101,21 @@ public class PlayerController : MonoBehaviour
                         objHit.gameObject.tag = "HumanSolved";
                         GameManager.humanSolved += 1;
                         // Destroy(objHit.gameObject);
-                        GameManager.ladderNum -= 1;
+                        GameManager.ladderNum -= ladderTake;
                     }
                     break;
                 case "Fire":
                     if(GameManager.waterNum > 0)
                     {
-                        print('s');
                         AbilitySpawn(water);
                         objHit.gameObject.tag = "FireSolved";
-                        GameManager.fireSolved += 1;
+                        if (objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)
+                        {
+                            GameManager.fireSolved += 1;
+                        }
                         //fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
-                        GameManager.waterNum -= 1;
+                        GameManager.waterNum -= waterTake;
                         //waterTxt.text = waterNum.ToString();
                     }
                     break;
@@ -130,7 +137,6 @@ public class PlayerController : MonoBehaviour
             print(objHit.tag);
             if (objHit.transform.CompareTag("Fire"))
             {
-                print('s');
                 AbilitySpawn(water);
                 objHit.gameObject.tag = "FireSolved";
                 if(objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)

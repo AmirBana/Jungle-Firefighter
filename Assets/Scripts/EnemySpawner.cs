@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minTime, maxTime));
             Vector3 spawnPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-            Instantiate(enemy, spawnPos, Quaternion.identity,transform);
+            Instantiate(enemy, spawnPos, enemy.transform.rotation,transform);
 
         }
     }

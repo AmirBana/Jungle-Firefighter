@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float speed=10f;
+    float speed;
     // Start is called before the first frame update
     void Start()
     {
-        
+        speed = GameManager.environmentSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(-Vector3.forward*speed*Time.deltaTime,Space.World);
+        if(transform.position.z < -70f) Destroy(gameObject);
     }
 }

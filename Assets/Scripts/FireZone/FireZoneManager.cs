@@ -11,7 +11,7 @@ public class FireZoneManager : MonoBehaviour
     float zBase ;
     float xMinBound, xMaxBound;
     int hHeight, vHeight;
-    // Start is called before the first frame update
+    // todo rework vars
     void Start()
     {
         size = cube.transform.localScale.x;

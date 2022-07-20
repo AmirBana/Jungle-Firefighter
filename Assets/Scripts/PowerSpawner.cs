@@ -26,7 +26,8 @@ public class PowerSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minTime,maxTime));
             Vector3 spawnPos = new Vector3(Random.Range(-cameraSize, cameraSize), transform.position.y, transform.position.z);
-            Instantiate(ability[Random.Range(0, ability.Length)], spawnPos, Quaternion.identity,transform);
+            int index = Random.Range(0, ability.Length);
+            Instantiate(ability[index], spawnPos, ability[index].transform.rotation,transform);
         }
     }
 }

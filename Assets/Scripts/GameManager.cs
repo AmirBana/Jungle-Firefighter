@@ -5,10 +5,11 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static int fireSpawned = 0;
-    public static int fireSolved = 0;
-    public static int humanSpawned = 0;
-    public static int humanSolved = 0;
+    [HideInInspector] public static int fireSpawned = 0;
+    [HideInInspector] public static int fireSolved = 0;
+    [HideInInspector] public static int humanSpawned = 0;
+    [HideInInspector] public static int humanSolved = 0;
+    public static float environmentSpeed = 10f;
     public static int waterNum = 20;
     public static int ladderNum = 10;
     public TextMeshProUGUI ladderTxt;

@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Problem : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
+    float speed;
     // Start is called before the first frame update
     void Start()
     {
-        
+        speed = GameManager.environmentSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+        if (transform.position.z < -70f)
+            Destroy(gameObject);
     }
+
 }

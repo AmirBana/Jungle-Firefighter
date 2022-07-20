@@ -1,17 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 10f;
+    float moveSpeed;
     [SerializeField] float fallSpeed = 10f;
-    public bool planeAbility=false;
+    [HideInInspector] public bool planeAbility=false;
     private string problemTag;
     // Start is called before the first frame update
     void Start()
     {
+        moveSpeed = GameManager.environmentSpeed;
         if (transform.CompareTag("Water"))
             problemTag = "FireSolved";
         else if (transform.CompareTag("Ladder"))
@@ -26,6 +24,7 @@ public class Ability : MonoBehaviour
         {
             transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
         }
+        if(transform.position.z < -70f) Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
