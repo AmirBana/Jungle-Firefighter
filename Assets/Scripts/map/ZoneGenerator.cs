@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZoneGenerator : MonoBehaviour
 {
     [SerializeField] GameObject zone;
+    [SerializeField] GameObject zoneHolder;
     MapGenerator mapGenerator;
     int xGrid, zGrid;
     int cubeSize;
@@ -31,7 +32,7 @@ public class ZoneGenerator : MonoBehaviour
             {
                 break;
             }
-            GenerateZone();
+            GenerateZone(i);
         }
     }
     void FreeSpaceCalc()
@@ -41,15 +42,18 @@ public class ZoneGenerator : MonoBehaviour
         totalFreeSpace = mapSize - totalSpaceNeeded;
         averangeFreeSpace = totalFreeSpace / amount;
     }
-    void GenerateZone()
+    void GenerateZone(int left)
     {
         //print('a');
         int xSize = Random.Range(minZoneSizeX, maxZoneSizeX);
         //int zSize = Random.Range(minZoneSizeZ, maxZoneSizeZ);
         int xStart = Random.Range(0, xGrid - xSize);
-         averangeFreeSpace = totalFreeSpace / amount;
-        int zStart = Random.Range(starter, starter+averangeFreeSpace);
+         averangeFreeSpace = totalFreeSpace / (amount-left);
+        print("averange Zone:"+averangeFreeSpace);
+        int zStart = Random.Range(starter, starter+averangeFreeSpace+1);
         totalFreeSpace = totalFreeSpace - (zStart-starter);
+        Vector3 holderPos = new Vector3(transform.position.x + xStart, transform.position.y, transform.position.z + zStart);
+        GameObject holder = Instantiate(zoneHolder, holderPos, transform.rotation, transform);
         Vector3 sPos;
         for(int z = zStart; z < zStart+zSize; z++)
         {
@@ -64,7 +68,7 @@ public class ZoneGenerator : MonoBehaviour
                // print('x');
                 sPos = new Vector3(mapGenerator.transform.position.x + x
                     , mapGenerator.transform.position.y, mapGenerator.transform.position.z + z);
-                Instantiate(zone, sPos, mapGenerator.transform.rotation, transform);
+                Instantiate(zone, sPos, mapGenerator.transform.rotation, holder.transform);
             }
         }
         starter = zStart + zSize;
