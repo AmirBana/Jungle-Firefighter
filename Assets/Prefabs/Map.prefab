@@ -47,6 +47,7 @@ MonoBehaviour:
   zone: {fileID: 235202795412445996, guid: ad47c37ce2312fd4784fd602c4d6ebab, type: 3}
   zoneHolder: {fileID: 7378129554411806540, guid: ef9326bf59c60614fb1b21f641e68393, type: 3}
   amount: 6
+  humanInEevryZone: 000000000200000001000000040000000000000003000000
   starter: 10
   maxDistance: 3
   minZoneSizeX: 3

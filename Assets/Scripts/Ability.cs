@@ -6,12 +6,16 @@ public class Ability : MonoBehaviour
     [SerializeField] float fallSpeed = 10f;
     [HideInInspector] public bool planeAbility=false;
     private string problemTag;
+    Color problemColor;
     // Start is called before the first frame update
     void Start()
     {
         moveSpeed = GameManager.environmentSpeed;
         if (transform.CompareTag("Water"))
+        {
             problemTag = "FireSolved";
+            problemColor = Color.green;
+        }
         else if (transform.CompareTag("Ladder"))
             problemTag = "HumanSolved";
     }
@@ -29,8 +33,9 @@ public class Ability : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.CompareTag(problemTag))
+            if(other.gameObject.GetComponent<MeshRenderer>().material.color == problemColor)
         {
-            Destroy(other.gameObject);
+                other.gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
             Destroy(gameObject);
         }
     }

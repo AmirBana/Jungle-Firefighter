@@ -7,11 +7,15 @@ public class ZoneController : MonoBehaviour
     List<GameObject> line = new List<GameObject> ();
     int zoneHeight = 10;
     int zoneWidth;
+    public int human;
+    public Color mainColor;
     // Start is called before the first frame update
     void Start()
     {
+       // human = transform.parent.GetComponent<ZoneGenerator>().humanInEevryZone;
         ZoneWidthCalc();
         FireLineGenerator();
+        //HumanGenerator();
     }
     void ZoneWidthCalc()
     {
@@ -29,34 +33,53 @@ public class ZoneController : MonoBehaviour
                 line.Add(transform.GetChild((i*zoneWidth)+j).gameObject);
                 //line[j].GetComponent<MeshRenderer>().material.color = Color.red;
             }
-                if (fire == -1)
-                {
-                    fire = Random.Range(0, line.Count);
-                    line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
-                    //line[fire].GetComponent<MeshRenderer>().enabled = true;
-                }
-                else if (fire == 0)
-                {
-                    fire = Random.Range(0, fire + 2);
-                    line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
-                    //line[fire].GetComponent<MeshRenderer>().enabled = true;
-                }
-                else if (fire == line.Count - 1)
-                {
-                    fire = Random.Range(fire - 1, fire + 1);
-                    line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
-                    //line[fire].GetComponent<MeshRenderer>().enabled = true;
-                }
-                else
-                {
-                    //print("before fire" + fire);
-                    fire = Random.Range(fire - 1, fire + 2);
-                    //print("lines:" + line.Count);
-                    //print("fire:" + fire);
-                    line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
-                    //line[fire].GetComponent<MeshRenderer>().enabled = true;
-                }
+            if (fire == -1)
+            {
+                fire = Random.Range(0, line.Count);
+                line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
+            }
+            else if (fire == 0)
+            {
+                fire = Random.Range(0, fire + 2);
+                line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
+            }
+            else if (fire == line.Count - 1)
+            {
+                fire = Random.Range(fire - 1, fire + 1);
+                line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                //print("before fire" + fire);
+                fire = Random.Range(fire - 1, fire + 2);
+                //print("lines:" + line.Count);
+                //print("fire:" + fire);
+                line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
+                //line[fire].GetComponent<MeshRenderer>().enabled = true;
+            }
             line.Clear();
         }
+    }
+    void HumanGenerator()
+    {
+        List<GameObject> freeCubes = new List<GameObject>();
+        for(int i=0;i< zoneHeight;i++)
+        {
+            for(int j=0;j<zoneWidth;j++)
+            {
+                if (transform.GetChild((i * zoneWidth) + j).gameObject.GetComponent<MeshRenderer>().material.color == mainColor)
+                {
+                    freeCubes.Add(transform.GetChild((i * zoneWidth) + j).gameObject);
+                }
+            }
+        }
+        for(int h=0;h<freeCubes.Count;h++)
+        {
+            freeCubes[h].GetComponent<MeshRenderer>().material.color = Color.blue;
+        }
+        freeCubes.Clear();
     }
 }

@@ -12,6 +12,7 @@ public class ZoneGenerator : MonoBehaviour
     int totalFreeSpace;
     int averangeFreeSpace;
     public int amount=5;
+    public int[] humanInEevryZone;
     public int starter = 10;
     public int maxDistance = 5;
     public int minZoneSizeX=3, maxZoneSizeX=5;
@@ -42,18 +43,19 @@ public class ZoneGenerator : MonoBehaviour
         totalFreeSpace = mapSize - totalSpaceNeeded;
         averangeFreeSpace = totalFreeSpace / amount;
     }
-    void GenerateZone(int left)
+    void GenerateZone(int done)
     {
         //print('a');
         int xSize = Random.Range(minZoneSizeX, maxZoneSizeX);
         //int zSize = Random.Range(minZoneSizeZ, maxZoneSizeZ);
         int xStart = Random.Range(0, xGrid - xSize);
-        averangeFreeSpace = totalFreeSpace / (amount-left);
+        averangeFreeSpace = totalFreeSpace / (amount-done);
        // print("averange Zone:"+averangeFreeSpace);
         int zStart = Random.Range(starter, starter+averangeFreeSpace+1);
         totalFreeSpace = totalFreeSpace - (zStart-starter);
         Vector3 holderPos = new Vector3(transform.position.x + xStart, transform.position.y, transform.position.z + zStart);
         GameObject holder = Instantiate(zoneHolder, holderPos, transform.rotation, transform);
+        holder.GetComponent<ZoneController>().human = humanInEevryZone[done];
         Vector3 sPos;
         for(int z = zStart; z < zStart+zSize; z++)
         {

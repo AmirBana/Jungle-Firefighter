@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    private float cameraSize;
+    public float xMin,xMax,zMin,zMax;
     [SerializeField] float forwardSpeed=10f;
     [SerializeField] float turnSpeed=10f;
     [SerializeField] float backwardSpeed = 10f;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask mask;
     void Start()
     {
-        cameraSize = Camera.main.orthographicSize / 2 - 3;
+        
     }
     void Update()
     {
@@ -35,28 +35,28 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))//todo add mobile swipe
         {
-            if (transform.position.x > cameraSize * -1)
+            if (transform.position.x > xMin)
             {
                 transform.Translate(Vector3.left*turnSpeed*Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
-            if (transform.position.x < cameraSize)
+            if (transform.position.x < xMax)
             {
                 transform.Translate(Vector3.right*turnSpeed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.W))//todo add mobile swipe
         {
-            if (transform.position.z < 50f)
+            if (transform.position.z < zMax)
             {
                 transform.Translate(Vector3.forward*forwardSpeed* Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.S))//todo add mobile swipe
         {
-            if (transform.position.z > 1f)
+            if (transform.position.z > zMin)
             {
                 transform.Translate(-Vector3.forward*backwardSpeed* Time.deltaTime, Space.World);
             }
@@ -89,8 +89,9 @@ public class PlayerController : MonoBehaviour
         var ray = new Ray(transform.position, Vector3.down*rayHeight);
         RaycastHit hit;
         Debug.DrawRay(transform.position, Vector3.down*rayHeight, Color.red);
-        if (Physics.Raycast(ray, out hit, mask))
+        if (Physics.Raycast(ray, out hit,100f, mask))
         {
+            print("ray detect1:" + hit.collider.gameObject.name);
             var objHit = hit.transform.gameObject;
             switch (objHit.tag)
             {
@@ -126,12 +127,12 @@ public class PlayerController : MonoBehaviour
     }
     void FireFinder()
     {
-        float rayHeight = 50.0f;
+        float rayHeight = 100.0f;
 
         var ray = new Ray(transform.position, Vector3.down*rayHeight);
         RaycastHit hit;
         Debug.DrawRay(transform.position, Vector3.down * rayHeight, Color.red);
-        if (Physics.Raycast(ray, out hit,10000,mask))
+        if (Physics.Raycast(ray, out hit,1000,mask))
         {
             var objHit = hit.transform.gameObject;
             print(objHit.tag);
