@@ -8,7 +8,7 @@ public class Problem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = GameManager.environmentSpeed;
+        speed = GameManager.instance.environmentSpeed;
     }
 
     // Update is called once per frame

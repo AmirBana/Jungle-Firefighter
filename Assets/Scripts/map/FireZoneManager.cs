@@ -74,7 +74,7 @@ public class FireZoneManager : MonoBehaviour
                 //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
             line.Clear();
-            GameManager.fireSpawned += 1;
+            GameManager.instance.fireSpawned += 1;
         }
     }
 }

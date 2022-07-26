@@ -9,7 +9,7 @@ public class GroundController : MonoBehaviour
     float speed = 10f;
     void Start()
     {
-        speed = GameManager.environmentSpeed;
+        speed = GameManager.instance.environmentSpeed;
     }
 
     // Update is called once per frame

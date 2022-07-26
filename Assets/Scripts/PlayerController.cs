@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask mask;
     void Start()
     {
-        
+        xMin = GameManager.instance.xMin;
+        xMax = GameManager.instance.xMax;
     }
     void Update()
     {
@@ -35,14 +36,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))//todo add mobile swipe
         {
-            if (transform.position.x > xMin)
+            if (transform.position.x >= xMin)
             {
                 transform.Translate(Vector3.left*turnSpeed*Time.deltaTime, Space.World);
             }
         }
         if (Input.GetKey(KeyCode.D))//todo add mobile swipe
         {
-            if (transform.position.x < xMax)
+            if (transform.position.x <= xMax)
             {
                 transform.Translate(Vector3.right*turnSpeed* Time.deltaTime, Space.World);
             }
@@ -68,13 +69,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            GameManager.waterNum += waterAdd;
+            GameManager.instance.waterNum += waterAdd;
         }
         if(other.transform.CompareTag("Ladder"))
         {
             Debug.Log(other.transform.name);
             Destroy(other.gameObject);
-            GameManager.ladderNum += ladderAdd;
+            GameManager.instance.ladderNum += ladderAdd;
         }
         if(other.transform.CompareTag("Enemy"))
         {
@@ -89,34 +90,34 @@ public class PlayerController : MonoBehaviour
         var ray = new Ray(transform.position, Vector3.down*rayHeight);
         RaycastHit hit;
         Debug.DrawRay(transform.position, Vector3.down*rayHeight, Color.red);
-        if (Physics.Raycast(ray, out hit,100f, mask))
+        if (Physics.Raycast(ray, out hit,1000f, mask))
         {
             print("ray detect1:" + hit.collider.gameObject.name);
             var objHit = hit.transform.gameObject;
             switch (objHit.tag)
             {
                 case "Human":
-                    if(GameManager.ladderNum > 0)
+                    if(GameManager.instance.ladderNum > 0)
                     {
                         AbilitySpawn(ladder);
                         objHit.gameObject.tag = "HumanSolved";
-                        GameManager.humanSolved += 1;
+                        GameManager.instance.humanSolved += 1;
                         // Destroy(objHit.gameObject);
-                        GameManager.ladderNum -= ladderTake;
+                        GameManager.instance.ladderNum -= ladderTake;
                     }
                     break;
                 case "Fire":
-                    if(GameManager.waterNum > 0)
+                    if(GameManager.instance.waterNum > 0)
                     {
                         AbilitySpawn(water);
                         objHit.gameObject.tag = "FireSolved";
                         if (objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)
                         {
-                            GameManager.fireSolved += 1;
+                            GameManager.instance.fireSolved += 1;
                         }
                         //fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
-                        GameManager.waterNum -= waterTake;
+                        GameManager.instance.waterNum -= waterTake;
                         //waterTxt.text = waterNum.ToString();
                     }
                     break;
@@ -142,11 +143,11 @@ public class PlayerController : MonoBehaviour
                 objHit.gameObject.tag = "FireSolved";
                 if(objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)
                 {
-                    GameManager.fireSolved += 1;
+                    GameManager.instance.fireSolved += 1;
                 }
                 //fireNum += 1;
                 //Destroy(objHit.gameObject);
-                GameManager.waterNum -= 1;
+                GameManager.instance.waterNum -= 1;
             }
         }
     }

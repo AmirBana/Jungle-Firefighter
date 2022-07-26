@@ -5,18 +5,26 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public static int fireSpawned = 0;
-    [HideInInspector] public static int fireSolved = 0;
-    [HideInInspector] public static int humanSpawned = 0;
-    [HideInInspector] public static int humanSolved = 0;
-    public static float environmentSpeed = 10f;
-    public static int waterNum = 20;
-    public static int ladderNum = 10;
+    public static GameManager instance { get; private set; }
+    [HideInInspector] public int fireSpawned = 0;
+    [HideInInspector] public int fireSolved = 0;
+    [HideInInspector] public int humanSpawned = 0;
+    [HideInInspector] public int humanSolved = 0;
+    public float environmentSpeed = 10f;
+    public int waterNum = 20;
+    public int ladderNum = 10;
+    public float xMin, xMax;
+ 
     public TextMeshProUGUI ladderTxt;
     public TextMeshProUGUI waterTxt;
     public TextMeshProUGUI humanTxt;
     public TextMeshProUGUI fireTxt;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if(instance == null)
+            instance = this;
+    }
     void Start()
     {
         humanTxt.text = "0%";

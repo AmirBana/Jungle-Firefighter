@@ -10,7 +10,7 @@ public class Ability : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = GameManager.environmentSpeed;
+        moveSpeed = GameManager.instance.environmentSpeed;
         if (transform.CompareTag("Water"))
         {
             problemTag = "FireSolved";
