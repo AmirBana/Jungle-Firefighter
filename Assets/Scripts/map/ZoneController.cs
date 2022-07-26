@@ -21,6 +21,10 @@ public class ZoneController : MonoBehaviour
     {
         int cubes = transform.childCount;
         zoneWidth = cubes / zoneHeight;
+        if(Input.GetKey(KeyCode.A))
+        {
+
+        }
     }
     void FireLineGenerator()
     {
@@ -60,6 +64,7 @@ public class ZoneController : MonoBehaviour
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
                 //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }
+            GameManager.instance.fireSpawned += 1;
             line.Clear();
         }
     }
@@ -80,6 +85,8 @@ public class ZoneController : MonoBehaviour
         {
             int index = Random.Range(0, freeCubes.Count);
             freeCubes[index].GetComponent<MeshRenderer>().material.color = Color.blue;
+            freeCubes[index].tag = "Human";
+            GameManager.instance.humanSpawned += 1;
             freeCubes.RemoveAt(index);
         }
         freeCubes.Clear();

@@ -1660,7 +1660,7 @@ MonoBehaviour:
   fireSolved: 0
   humanSpawned: 0
   humanSolved: 0
-  environmentSpeed: 5
+  environmentSpeed: 10
   waterNum: 50
   ladderNum: 10
   xMin: -2.4

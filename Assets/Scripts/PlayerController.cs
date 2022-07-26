@@ -118,36 +118,10 @@ public class PlayerController : MonoBehaviour
                         //fireTxt.text = fireNum.ToString();
                         //Destroy(objHit.gameObject);
                         GameManager.instance.waterNum -= waterTake;
-                        //waterTxt.text = waterNum.ToString();
                     }
                     break;
                 default:
                     break;
-            }
-        }
-    }
-    void FireFinder()
-    {
-        float rayHeight = 100.0f;
-
-        var ray = new Ray(transform.position, Vector3.down*rayHeight);
-        RaycastHit hit;
-        Debug.DrawRay(transform.position, Vector3.down * rayHeight, Color.red);
-        if (Physics.Raycast(ray, out hit,1000,mask))
-        {
-            var objHit = hit.transform.gameObject;
-            print(objHit.tag);
-            if (objHit.transform.CompareTag("Fire"))
-            {
-                AbilitySpawn(water);
-                objHit.gameObject.tag = "FireSolved";
-                if(objHit.gameObject.GetComponent<MeshRenderer>().material.color == Color.green)
-                {
-                    GameManager.instance.fireSolved += 1;
-                }
-                //fireNum += 1;
-                //Destroy(objHit.gameObject);
-                GameManager.instance.waterNum -= 1;
             }
         }
     }
