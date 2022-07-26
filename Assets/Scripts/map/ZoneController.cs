@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ZoneController : MonoBehaviour
 {
-    List<GameObject> line = new List<GameObject> ();
+    List<GameObject> line = new List<GameObject>();
     int zoneHeight = 10;
     int zoneWidth;
     public int human;
-    public Color mainColor;
+    public Material mainColor;
     // Start is called before the first frame update
     void Start()
     {
-       // human = transform.parent.GetComponent<ZoneGenerator>().humanInEevryZone;
+        // human = transform.parent.GetComponent<ZoneGenerator>().humanInEevryZone;
         ZoneWidthCalc();
         FireLineGenerator();
-        //HumanGenerator();
+        HumanGenerator();
     }
     void ZoneWidthCalc()
     {
@@ -25,12 +25,12 @@ public class ZoneController : MonoBehaviour
     void FireLineGenerator()
     {
         int fire = -1;
-        for(int i=0;i<zoneHeight;i++)
+        for (int i = 0; i < zoneHeight; i++)
         {
-            for(int j=0;j < zoneWidth;j++)
+            for (int j = 0; j < zoneWidth; j++)
             {
                 //print(((i * zoneWidth) + j));
-                line.Add(transform.GetChild((i*zoneWidth)+j).gameObject);
+                line.Add(transform.GetChild((i * zoneWidth) + j).gameObject);
                 //line[j].GetComponent<MeshRenderer>().material.color = Color.red;
             }
             if (fire == -1)
@@ -66,19 +66,21 @@ public class ZoneController : MonoBehaviour
     void HumanGenerator()
     {
         List<GameObject> freeCubes = new List<GameObject>();
-        for(int i=0;i< zoneHeight;i++)
+        for (int i = 0; i < zoneHeight; i++)
         {
-            for(int j=0;j<zoneWidth;j++)
+            for (int j = 0; j < zoneWidth; j++)
             {
-                if (transform.GetChild((i * zoneWidth) + j).gameObject.GetComponent<MeshRenderer>().material.color == mainColor)
+                if (transform.GetChild((i * zoneWidth) + j).gameObject.GetComponent<MeshRenderer>().material.color == mainColor.color)
                 {
                     freeCubes.Add(transform.GetChild((i * zoneWidth) + j).gameObject);
                 }
             }
         }
-        for(int h=0;h<freeCubes.Count;h++)
+        for (int i = 0; i < human; i++)
         {
-            freeCubes[h].GetComponent<MeshRenderer>().material.color = Color.blue;
+            int index = Random.Range(0, freeCubes.Count);
+            freeCubes[index].GetComponent<MeshRenderer>().material.color = Color.blue;
+            freeCubes.RemoveAt(index);
         }
         freeCubes.Clear();
     }

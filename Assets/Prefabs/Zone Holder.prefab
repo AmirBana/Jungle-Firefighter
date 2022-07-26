@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   human: 0
-  mainColor: {r: 0.8666667, g: 0.7882353, b: 0.02745098, a: 0}
+  mainColor: {fileID: 2100000, guid: 4922e391a6b1e384885d6255a19b6c22, type: 2}

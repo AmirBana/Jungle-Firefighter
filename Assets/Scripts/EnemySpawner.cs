@@ -7,12 +7,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject enemy;
     [SerializeField] float minTime = 1f;
     [SerializeField] float maxTime = 3f;
-    private float cameraSize;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        cameraSize = Camera.main.orthographicSize / 2 - 3;
         player = GameObject.FindWithTag("Player");
         StartCoroutine("Spawner");
     }
@@ -20,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.position.z < -70f) Destroy(gameObject);
     }
     IEnumerator Spawner()
     {

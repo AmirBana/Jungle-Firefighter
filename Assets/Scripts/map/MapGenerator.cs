@@ -22,8 +22,8 @@ public class MapGenerator : MonoBehaviour
     }
     private void CubeScale()
     {
-        baseCubes[0].transform.localScale = new Vector3(xGrid+20, 1, 10);
-        baseCubes[1].transform.localScale = new Vector3(xGrid+20, 1, 10);
+        baseCubes[0].transform.localScale = new Vector3(xGrid+30, 1, 10);
+        baseCubes[1].transform.localScale = new Vector3(xGrid+30, 1, 10);
     }
     private void Update()
     {
@@ -51,9 +51,9 @@ public class MapGenerator : MonoBehaviour
         int startCube = 0;
         Vector3 sPos;
         int x =-10;
-        for (int z = -10; z < zGrid + 3; z += 10)
+        for (int z = -50; z < zGrid + 30; z += 10)
         {
-                sPos = new Vector3(transform.position.x+5, transform.position.y, transform.position.z + z);
+                sPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + z);
                 Instantiate(baseCubes[startCube], sPos, transform.rotation, transform);
                 startCube = startCube == 1 ? 0 : 1;
         }

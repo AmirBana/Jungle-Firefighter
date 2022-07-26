@@ -28,7 +28,7 @@ public class Ability : MonoBehaviour
         {
             transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
         }
-        if(transform.position.z < -70f) Destroy(gameObject);
+        if(transform.position.z < -70f || transform.position.y < -10f) Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
