@@ -1,1 +1,56 @@
-{}
+{
+    "name": "Movement",
+    "maps": [
+        {
+            "name": "Movement",
+            "id": "f338f838-119f-45d3-bcbf-b5dbb3ebabf6",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "55dd2825-73b9-4078-98ad-1a9809a7d9a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Left/Right",
+                    "id": "778d765d-b6da-48c5-bd65-cc4500a93206",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d4d31b69-d9d2-43b2-b282-222a31764e6e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "ace0be2a-35f4-40bc-8c68-8439b1b0d90b",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

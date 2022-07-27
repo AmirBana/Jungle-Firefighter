@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(Vector3.right*turnSpeed* Time.deltaTime, Space.World);
             }
         }
-        if (Input.GetKey(KeyCode.W))//todo add mobile swipe
+       /* if (Input.GetKey(KeyCode.W))//todo add mobile swipe
         {
             if (transform.position.z < zMax)
             {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             {
                 transform.Translate(-Vector3.forward*backwardSpeed* Time.deltaTime, Space.World);
             }
-        }
+        }*/
     }
     private void OnTriggerEnter(Collider other)
     {
