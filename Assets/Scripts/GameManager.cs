@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         humanTxt.text = "0%";
         fireTxt.text = "0%";
+        Application.targetFrameRate = 120;
     }
 
     // Update is called once per frame
