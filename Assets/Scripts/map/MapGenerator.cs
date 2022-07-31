@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MapGenerator : MonoBehaviour
 {
     private float speed;
@@ -10,10 +10,12 @@ public class MapGenerator : MonoBehaviour
     bool isOdd;
     public int size;
     public GameObject[] baseCubes;
+    float zPos;
     // Start is called before the first frame update
     void Start()
     {
         speed = GameManager.instance.environmentSpeed;
+        zPos = transform.position.z;
         xGrid = xGrid*size;
         zGrid = zGrid * size;
         isOdd = xGrid%2==0 ? false : true;
@@ -57,5 +59,9 @@ public class MapGenerator : MonoBehaviour
                 Instantiate(baseCubes[startCube], sPos, transform.rotation, transform);
                 startCube = startCube == 1 ? 0 : 1;
         }
+    }
+    public void OnReset()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, zPos);
     }
 }

@@ -39,12 +39,21 @@ public class PlayerController : MonoBehaviour
     float swipeDistance;
     float swipeTime;
     new Rigidbody rb;
+
+    //
+    //public Transform m_TransToMove;
+    //public float m_speedModifier = .01f;
+    [Space]
+    public bool localMovement;
+    Touch curTouch;
+    Vector3 newPos = Vector3.zero;
+    //
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         //sensivity = 0.5f;
         sensivity=sensivitySlider.value;
-        inputType = "accel";
+        inputType = "swipe";
         inputChangeBtn.GetComponentInChildren<TextMeshProUGUI>().text = inputType;
         xMin = GameManager.instance.xMin;
         xMax = GameManager.instance.xMax;
@@ -63,7 +72,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (inputType == "swipe")
         {
-            MobileSwipe();
+            SwipeControl();
         }
     }
     void Movement()
@@ -98,48 +107,24 @@ public class PlayerController : MonoBehaviour
             }
         }*/
     }
-    void MobileSwipe()
+    void SwipeControl()
     {
-        if(Input.touchCount>0)
+        if(Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-            if(touch.phase == TouchPhase.Began)
+            curTouch = Input.GetTouch(0);
+            if(curTouch.phase == TouchPhase.Moved)
             {
-                //print(touch.position.x);
-                current = touch.position;
-                last = current;
-
-            }
-            else if(touch.phase == TouchPhase.Moved)
-            {
-                current = touch.position;
-                swipeDistance = Vector3.Distance(current , last);
-                if(swipeDistance > minSwipeDist)
+                float newX = curTouch.deltaPosition.x * sensivity * Time.deltaTime;
+                newPos = localMovement ? transform.localPosition : transform.position;
+                newPos.x += newX;
+                newPos.x = Mathf.Clamp(newPos.x, xMin, xMax);
+                if(localMovement)
                 {
-                    Swipe();
+                    transform.localPosition = newPos;
                 }
-                last = current;
-            }
-        }
-    }
-    void Swipe()
-    {
-        Vector2 distance = current - last ;
-       // print(distance.x);
-        if(Mathf.Abs(distance.x) > Mathf.Abs(distance.y))
-        {
-            if (distance.x > 0f)
-            {
-                if (transform.position.x <= xMax)
+                else
                 {
-                    rb.MovePosition(transform.position + ((Vector3.right * turnSpeed ) * sensivity));
-                }
-            }
-            if (distance.x < 0f)
-            {
-                if (transform.position.x >= xMin)
-                {
-                    rb.MovePosition(transform.position + ((Vector3.left * turnSpeed )* sensivity));
+                    transform.position = newPos;
                 }
             }
         }
