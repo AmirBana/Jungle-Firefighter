@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using Random = UnityEngine.Random;
 public class PlayerController : MonoBehaviour
 {
     public float xMin,xMax,zMin,zMax;
@@ -20,8 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI waterTxt;
     [SerializeField] TextMeshProUGUI humanTxt;
     [SerializeField] TextMeshProUGUI fireTxt;
-    [SerializeField] Slider sensivitySlider;
-    float sensivity;
+    [SerializeField] TMP_InputField sensivityInput;
+    public float sensivity;
+    private float initSensivity;
     [SerializeField] TextMeshProUGUI sliderAmount;
     [SerializeField] Button inputChangeBtn;
     float accelerationShow;
@@ -38,11 +40,10 @@ public class PlayerController : MonoBehaviour
     Vector3 current, last;
     float swipeDistance;
     float swipeTime;
-    new Rigidbody rb;
+    private Rigidbody rb;
 
     //
     //public Transform m_TransToMove;
-    //public float m_speedModifier = .01f;
     [Space]
     public bool localMovement;
     Touch curTouch;
@@ -52,7 +53,10 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         //sensivity = 0.5f;
-        sensivity=sensivitySlider.value;
+
+        //sensivity=(float)Convert.ToDouble(sensivityInput.text);
+        initSensivity = sensivity;
+        sensivityInput.text = sensivity.ToString();
         inputType = "swipe";
         inputChangeBtn.GetComponentInChildren<TextMeshProUGUI>().text = inputType;
         xMin = GameManager.instance.xMin;
@@ -60,7 +64,6 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-     
         ProblemDetection();
         //FireFinder();
     }
@@ -153,8 +156,18 @@ public class PlayerController : MonoBehaviour
     }
     public void SensivityChange()
     {
-        sensivity = sensivitySlider.value;
-        sliderAmount.text = string.Format("{0:F4}",sensivity);
+        if(sensivityInput.text.Length> 0 )
+        {
+            var s = Convert.ToSingle(sensivityInput.text);
+            sensivity = Mathf.Clamp(s, 0.01f, 1f);
+            sensivityInput.text = sensivity.ToString();
+        }
+       // sliderAmount.text = string.Format("{0:F4}",sensivity);
+    }
+    public void resetSensivity()
+    {
+        sensivity = initSensivity;
+        sensivityInput.text = sensivity.ToString() ;
     }
     private void OnTriggerEnter(Collider other)
     {
