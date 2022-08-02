@@ -32,14 +32,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask mask;
     public float maxTime;
     public float minSwipeDist;
-    float startTime;
-    float endTime;
-    Vector3 startPos;
-    Vector3 endPos;
-
-    Vector3 current, last;
-    float swipeDistance;
-    float swipeTime;
     private Rigidbody rb;
 
     //
@@ -64,18 +56,22 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        ProblemDetection();
+        if (GameManager.instance.gameStart && !GameManager.instance.gameOver)
+            ProblemDetection();
         //FireFinder();
     }
     void FixedUpdate()
     {
-        if (inputType == "accel")
+        if (GameManager.instance.gameStart && !GameManager.instance.gameOver)
         {
-            MobileAccel();
-        }
-        else if (inputType == "swipe")
-        {
-            SwipeControl();
+            if (inputType == "accel")
+            {
+                MobileAccel();
+            }
+            else if (inputType == "swipe")
+            {
+                SwipeControl();
+            }
         }
     }
     void Movement()

@@ -26,9 +26,12 @@ public class PowerSpawner : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(Random.Range(minTime,maxTime));
-            Vector3 spawnPos = new Vector3(Random.Range(xMin, xMax), transform.position.y, transform.position.z);
-            int index = Random.Range(0, ability.Length);
-            Instantiate(ability[index], spawnPos, ability[index].transform.rotation,transform);
+            if(GameManager.instance.gameStart && !GameManager.instance.gameOver)
+            {
+                Vector3 spawnPos = new Vector3(Random.Range(xMin, xMax), transform.position.y, transform.position.z);
+                int index = Random.Range(0, ability.Length);
+                Instantiate(ability[index], spawnPos, ability[index].transform.rotation, transform);
+            }
         }
     }
 }

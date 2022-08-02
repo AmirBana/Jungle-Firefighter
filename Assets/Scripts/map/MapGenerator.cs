@@ -29,7 +29,10 @@ public class MapGenerator : MonoBehaviour
     }
     private void Update()
     {
-        transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+        if (GameManager.instance.gameStart == true && GameManager.instance.gameOver == false)
+        {
+            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+        }
     }
     /*void Generator()
     {

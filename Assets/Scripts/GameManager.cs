@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -14,12 +15,19 @@ public class GameManager : MonoBehaviour
     public int waterNum = 20;
     public int ladderNum = 10;
     public float xMin, xMax;
+    public bool gameStart;
+    public bool gameOver;
+    public bool gamefinish;
  
     public TextMeshProUGUI ladderTxt;
     public TextMeshProUGUI waterTxt;
     public TextMeshProUGUI humanTxt;
     public TextMeshProUGUI fireTxt;
-    // Start is called before the first frame update
+
+    //Canvas
+    [SerializeField] GameObject panelStart;
+    [SerializeField] GameObject panelInGame;
+    [SerializeField] GameObject panelOverGame;
     private void Awake()
     {
         if(instance == null)
@@ -27,6 +35,9 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        gameStart = false;
+        gameOver = false;
+        gamefinish = false;
         humanTxt.text = "0%";
         fireTxt.text = "0%";
         Application.targetFrameRate = 120;
@@ -45,5 +56,19 @@ public class GameManager : MonoBehaviour
         humanTxt.text = ((humanSolved * 100) / humanSpawned).ToString() + '%';
         waterTxt.text = waterNum.ToString();
         ladderTxt.text = ladderNum.ToString();
+    }
+    public void StartGame()
+    {
+        gameStart = true;
+        panelStart.SetActive(false);
+        panelInGame.SetActive(true);
+    }
+    public void OverGame()
+    {
+
+    }
+    public void FinishGame()
+    {
+
     }
 }

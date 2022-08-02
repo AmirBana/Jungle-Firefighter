@@ -17,7 +17,10 @@ public class Ability : MonoBehaviour
             problemColor = Color.green;
         }
         else if (transform.CompareTag("Ladder"))
+        {
             problemTag = "HumanSolved";
+            problemColor = Color.blue;
+        }
     }
 
     // Update is called once per frame

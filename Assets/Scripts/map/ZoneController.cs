@@ -9,10 +9,8 @@ public class ZoneController : MonoBehaviour
     int zoneWidth;
     public int human;
     public Material mainColor;
-    // Start is called before the first frame update
     void Start()
     {
-        // human = transform.parent.GetComponent<ZoneGenerator>().humanInEevryZone;
         ZoneWidthCalc();
         FireLineGenerator();
         HumanGenerator();
@@ -33,7 +31,6 @@ public class ZoneController : MonoBehaviour
         {
             for (int j = 0; j < zoneWidth; j++)
             {
-                //print(((i * zoneWidth) + j));
                 line.Add(transform.GetChild((i * zoneWidth) + j).gameObject);
                 //line[j].GetComponent<MeshRenderer>().material.color = Color.red;
             }
@@ -57,10 +54,7 @@ public class ZoneController : MonoBehaviour
             }
             else
             {
-                //print("before fire" + fire);
                 fire = Random.Range(fire - 1, fire + 2);
-                //print("lines:" + line.Count);
-                //print("fire:" + fire);
                 line[fire].GetComponent<MeshRenderer>().material.color = Color.green;
                 //line[fire].GetComponent<MeshRenderer>().enabled = true;
             }

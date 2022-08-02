@@ -45,13 +45,20 @@ public class ZoneGenerator : MonoBehaviour
     }
     void GenerateZone(int done)
     {
-        //print('a');
         int xSize = Random.Range(minZoneSizeX, maxZoneSizeX);
         //int zSize = Random.Range(minZoneSizeZ, maxZoneSizeZ);
         int xStart = Random.Range(0, xGrid - xSize);
         averangeFreeSpace = totalFreeSpace / (amount-done);
-       // print("averange Zone:"+averangeFreeSpace);
-        int zStart = Random.Range(starter, starter+averangeFreeSpace+1);
+        int maxDist;
+        if((averangeFreeSpace + 1) > 5)
+        {
+            maxDist = 5;
+        }
+        else
+        {
+            maxDist = averangeFreeSpace + 1;
+        }
+        int zStart = Random.Range(starter, starter + maxDist);
         totalFreeSpace = totalFreeSpace - (zStart-starter);
         Vector3 holderPos = new Vector3(transform.position.x + xStart, transform.position.y, transform.position.z + zStart);
         GameObject holder = Instantiate(zoneHolder, holderPos, transform.rotation, transform);
@@ -64,16 +71,14 @@ public class ZoneGenerator : MonoBehaviour
                 isEnded = true;
                 break;
             }
-            //print('z');
             for (int x = xStart; x < xStart+xSize; x++)
             {
-               // print('x');
                 sPos = new Vector3(mapGenerator.transform.position.x + x
                     , mapGenerator.transform.position.y+1, mapGenerator.transform.position.z + z);
                 Instantiate(zone, sPos, mapGenerator.transform.rotation, holder.transform);
             }
         }
-        starter = zStart + zSize;
+        starter = zStart + zSize+1;
     }
 }
 
