@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using GameAnalyticsSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,12 +42,18 @@ public class GameManager : MonoBehaviour
         humanTxt.text = "0%";
         fireTxt.text = "0%";
         Application.targetFrameRate = 120;
+        GameAnalytics.Initialize();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         TextUpdate();
+        if(gamefinish)
+        {
+            FinishGame();
+        }
     }
     void TextUpdate()
     {
@@ -62,6 +69,7 @@ public class GameManager : MonoBehaviour
         gameStart = true;
         panelStart.SetActive(false);
         panelInGame.SetActive(true);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World01");
     }
     public void OverGame()
     {
@@ -69,6 +77,6 @@ public class GameManager : MonoBehaviour
     }
     public void FinishGame()
     {
-
+       print("gameFinished");
     }
 }

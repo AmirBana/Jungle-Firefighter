@@ -13,12 +13,13 @@ public class ZoneGenerator : MonoBehaviour
     int averangeFreeSpace;
     public int amount=5;
     public int[] humanInEevryZone;
-    public int starter = 10;
+    public int starter;
     public int maxDistance = 5;
     public int minZoneSizeX=3, maxZoneSizeX=5;
     //public int minZoneSizeZ=5, maxZoneSizeZ=15;
     public int zSize = 10;
     bool isEnded;
+    float finishLine;
     private void Start()
     {
         isEnded = false;
@@ -34,6 +35,20 @@ public class ZoneGenerator : MonoBehaviour
                 break;
             }
             GenerateZone(i);
+        }
+        FinishLine();
+    }
+    void FinishLine()
+    {
+        Transform lastZone = transform.GetChild(transform.childCount - 1).transform;
+        float lastZPos=lastZone.position.z + lastZone.GetChild(transform.childCount - 1).transform.position.z;
+        finishLine = lastZPos;
+    }
+    private void Update()
+    {
+        if(transform.parent.transform.position.z < finishLine)
+        {
+            GameManager.instance.gamefinish = true;
         }
     }
     void FreeSpaceCalc()
@@ -78,7 +93,7 @@ public class ZoneGenerator : MonoBehaviour
                 Instantiate(zone, sPos, mapGenerator.transform.rotation, holder.transform);
             }
         }
-        starter = zStart + zSize+1;
+        starter = zStart + zSize + 1;
     }
 }
 

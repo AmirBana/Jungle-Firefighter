@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour
         }
        // sliderAmount.text = string.Format("{0:F4}",sensivity);
     }
+    void FinishGame()
+    {
+
+    }
     public void resetSensivity()
     {
         sensivity = initSensivity;
